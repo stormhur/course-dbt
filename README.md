@@ -18,6 +18,7 @@ from dbt_storm_h.stg_users
 ```
 
 On average, how many orders do we receive per hour? **15**
+_interpreted as total orders per hour of day, ignoring day<>hour uniqueness._
 ```
 select
   ROUND(count(distinct order_id)
@@ -55,7 +56,8 @@ from
 group by 1
 ```
 
-On average, how many unique sessions do we have per hour? **39.**
+On average, how many unique sessions do we have per hour? **39.** 
+_interpreted as total sessions per hour of day, ignoring day<>hour uniqueness._
 ```
 select 
   round(avg(sessions),0) as avg_sessions_per_hour
