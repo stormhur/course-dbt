@@ -1,0 +1,136 @@
+version: 2
+
+models:
+
+  - name: stg_addresses
+    description: Metadata about each address, such as zip code, state, and country. 
+    columns:
+      - name: address_id
+        tests:
+          - not_null
+          - unique
+      - name: address
+        tests:
+          - not_null
+      - name: zipcode
+        tests:
+          - not_null
+          - positive_values
+      - name: state
+        tests:
+          - not_null
+      - name: country
+        tests:
+          - not_null
+  
+  - name: stg_events
+    description: Event data, which allows us to understand each user's events by page and product.
+    columns:
+      - name: event_id
+        tests:
+          - not_null
+          - unique
+      - name: user_id
+        tests:
+          - not_null
+      - name: event_type
+        tests:
+          - not_null
+      - name: page_url
+      - name: created_at_utc
+        tests:
+          - not_null
+      - name: order_id
+      - name: product_id
+
+  - name: stg_order_items
+    description: Details about each order, including number and type of products 
+    tests:
+    #ensures that each row is unique at order_id<>product_id level
+      - unique:
+          column_name: "product_id || '-' || order_id"
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+      - name: product_id
+        tests:
+          - not_null
+      - name: total_order_items
+        tests:
+          - positive_values
+  
+  - name: stg_orders
+    description: Details about the order  
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+      - name: promo_id
+      - name: user_id
+        tests:
+          - not_null
+      - name: address_id
+        tests:
+          - not_null
+      - name: created_at_utc
+      - name: order_cost_usd
+      - name: shipping_cost_usd
+      - name: tracking_id
+      - name: shipping_service
+      - name: estimated_delivery_at_utc
+      - name: delivered_at_utc
+      - name: status
+  
+  - name: stg_products
+    description: Information about the product, including name, price, and inventory.
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+      - name: product_name
+        tests:
+          - not_null
+      - name: price_usd
+        tests:
+          - positive_values
+      - name: total_inventory
+        tests: 
+          - not_null
+
+  - name: stg_promos
+    description: Metadata about promotions, including dicount rate and status of promotion.
+    columns:
+      - name: promo_id
+        tests:
+          - not_null
+          - unique
+      - name: price_discount_rate
+        tests:
+          - positive_values
+      - name: status
+        tests: 
+          - not_null
+  
+  - name: stg_users
+    description: Demographics about each superhero such as name, hair color, height and weight. 
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+          - unique
+      - name: first_name
+      - name: last_name
+      - name: email 
+        tests:
+          - is_email
+      - name: phone_number 
+        tests: 
+          - is_phone_number_length
+      - name: created_at_utc 
+      - name: updated_at_utc
+      - name: address_id 
+        tests:
+          - not_null 

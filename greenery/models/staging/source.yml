@@ -1,0 +1,44 @@
+version: 2
+
+sources:
+
+  - name: tutorial # name of the source 
+    schema: public # this is the schema our raw data lives in
+    database: dbt # this is the name of our database
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    tables:
+      - name: events
+        loaded_at_field: created_at_utc
+        description: >
+          Contains event data across pages for orders
+    
+      - name: users
+        loaded_at_field: created_at_utc
+        description: >
+          Contains user metadata
+      
+      - name: addresses
+        description: >
+          Contains address metadata
+    
+      - name: orders
+        loaded_at_field: created_at_utc
+        description: >
+          Contains order metadata 
+
+      - name: products
+        description: >
+          Contains product metadata
+      
+      - name: order_items
+        description: >
+          Contains order metadata
+      
+      - name: promos
+        description: >
+          Contains promos metadata
