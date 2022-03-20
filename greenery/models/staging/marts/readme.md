@@ -13,7 +13,7 @@ SELECT
             THEN 1 
         ELSE 0 END)::numeric
         /COUNT(*) AS returning_user_rate
-FROM dbt_storm_h.int_user_orders_agg.sql
+FROM dbt_storm_h.int_user_orders_agg
 ```
 
 1. **What are good indicators of a user who will likely purchase again?** What about indicators of users who are likely NOT to purchase again? If you had more data, what features would you want to look into to answer this question?
@@ -77,7 +77,8 @@ This may seem a bit confusing, but the idea here is that core is the layer for s
 
 2. **Did you find any “bad” data** as you added and ran tests on your models? How did you go about either cleaning the data in the dbt model or adjusting your assumptions/tests?
 
-All were discovered last week. 
+The shipping and tracking related data in the orders table can be null based on the status. This should be okay, assuming business logic is understood. For now, will not add any tests or anything.
+
 
 3. Your stakeholders at Greenery want to understand the state of the data each day. **Explain how you would ensure these tests are passing regularly and how you would alert stakeholders about bad data getting through.**
 
