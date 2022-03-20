@@ -3,7 +3,18 @@ We were approached by the marketing team to answer some questions about Greenery
 
 1. **What is our user repeat rate?** _Repeat Rate = Users who purchased 2 or more times / users who purchased_
 
-Our repeat user rate is: 
+Our user repeat rate is: 79.83%
+
+SQL: 
+```
+SELECT 
+    SUM(CASE 
+        WHEN total_orders >= 2 
+            THEN 1 
+        ELSE 0 END)::numeric
+        /COUNT(*) AS returning_user_rate
+FROM dbt_storm_h.int_user_orders_agg.sql
+```
 
 1. **What are good indicators of a user who will likely purchase again?** What about indicators of users who are likely NOT to purchase again? If you had more data, what features would you want to look into to answer this question?
 
