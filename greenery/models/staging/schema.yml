@@ -107,7 +107,7 @@ models:
         tests:
           - not_null
           - unique
-      - name: price_discount_rate
+      - name: price_discount_in_usd
         tests:
           - positive_values
       - name: status

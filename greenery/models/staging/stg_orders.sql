@@ -6,7 +6,7 @@
 
 SELECT 
     order_id,
-    promo_id,
+    LOWER(promo_id) as promo_id,
     user_id,
     address_id,
     created_at AS created_at_utc,
@@ -14,8 +14,8 @@ SELECT
     shipping_cost AS shipping_cost_usd,
     order_total AS order_total_usd,
     tracking_id,
-    shipping_service,
-    estimated_delivery_at AS esimated_delivery_at_utc,
+    LOWER(shipping_service) AS shipping_service,
+    estimated_delivery_at AS estimated_delivery_at_utc,
     delivered_at AS delivered_at_utc,
     status
 FROM {{ source('tutorial', 'orders') }}

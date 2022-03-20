@@ -6,8 +6,8 @@
 
 SELECT 
     address_id,
-    address,
+    LOWER(address) AS address,
     zipcode,
-    state,
-    country
+    LOWER(state) AS state,
+    LOWER(country) AS country
 FROM {{ source('tutorial', 'addresses') }}

@@ -1,0 +1,134 @@
+version: 2
+
+models:
+
+  - name: fact_user_content_pageviews
+    description: A table storing all content-related pageviews at user-level. Each row is unique at event<>user level. Data is joined to most recent product details. 
+    tests: 
+      - unique:
+            column_name: "event_id || '-' || user_id"
+    columns:
+      - name: event_id
+        tests:
+          - not_null
+      - name: pageview_timestamp_utc
+      - name: pageview_date_utc
+      - name: user_id
+        tests:
+          - not_null
+      - name: user_first_name_last_name
+      - name: email
+      - name: phone_number
+      - name: user_created_at_utc
+      - name: user_associated_address_ids_commasep
+      - name: user_associated_addresses_commasep
+      - name: user_associated_zipcodes_commasep
+      - name: user_associated_states_commasep
+      - name: user_associated_countries_commasep
+      - name: is_product_inventory_available
+        tests: 
+          - not_null 
+      - name: is_less_than_25_product_inventory_available
+        tests: 
+          - not_null
+      - name: days_since_user_created
+        tests: 
+          - positive_values
+      - name: session_id
+      - name: page_url 
+        tests: 
+          - not_null
+      - name: product_id 
+      - name: product_name 
+        tests: 
+          - not_null 
+      - name: price_usd 
+        tests: 
+          - positive_values
+      - name: total_product_inventory
+        tests: 
+          - not_null 
+  
+  - name: fact_user_order_pageviews
+    description: A table storing all order-related pageviews at user-level. Each row is unique at event<>user level. Data is joined to most recent order details. 
+    tests: 
+      - unique:
+            column_name: "event_id || '-' || user_id"
+    columns:
+      - name: event_id
+        tests:
+          - not_null
+      - name: pageview_timestamp_utc
+      - name: pageview_date_utc
+      - name: user_id 
+        tests: 
+          - not_null 
+      - name: user_first_name_last_name
+      - name: email
+      - name: phone_number 
+      - name: days_since_user_created
+        tests: 
+          - positive_values
+      - name: session_id 
+        tests: 
+          - not_null 
+      - name: page_url 
+      - name: order_id 
+        tests: 
+          - not_null
+      - name: active_promo_id 
+      - name: order_address_id,
+      - name: order_address,
+      - name: order_zipcode,
+      - name: order_state,
+      - name: order_country,
+      - name: order_created_at_utc,
+      - name: product_names_in_order_commasep
+      - name: total_products_in_order_commasep
+      - name: total_order_items
+      - name: total_order_products
+      - name: order_cost_usd
+      - name: active_price_discount_in_usd
+      - name: shipping_cost_usd
+      - name: order_total_usd
+      - name: average_total_cost_per_item_usd
+      - name: tracking_id 
+      - name: shipping_service 
+      - name: estimated_delivery_at_utc
+      - name: delivered_at_utc
+      - name: days_to_deliver
+      - name: days_to_estimated_delivered_minus_delivered
+      - name: estimated_delivery_performance
+      - name: is_delivered
+
+  - name: fact_user_sessions
+    description: A table storing all metadata on Sessions. Each row is unique at session<>user level. 
+    tests:
+    #ensures that each row is unique at user<>session level
+      - unique:
+          column_name: "session_id || '-' || user_id"
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+      - name: session_id 
+        tests:
+          - not_null
+      - name: session_length_in_minutes
+        tests:
+          - positive_values
+      - name: session_start_time
+      - name: session_end_time
+      - name: is_session_with_checkout
+      - name: total_events
+        tests: 
+          - positive_values
+      - name: total_add_to_cart_events
+      - name: total_checkout_page_views
+      - name: total_content_page_views
+      - name: unique_urls_viewed
+      - name: total_package_shipped_page_views
+      - name: unique_orders_viewed
+      - name: unique_products_viewed
+  
+ 
