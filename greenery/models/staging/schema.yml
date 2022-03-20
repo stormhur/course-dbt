@@ -115,7 +115,7 @@ models:
           - not_null
   
   - name: stg_users
-    description: Demographics about each superhero such as name, hair color, height and weight. 
+    description: Demographics about each user.
     columns:
       - name: user_id
         tests:
@@ -134,3 +134,4 @@ models:
       - name: address_id 
         tests:
           - not_null 
+          - unique
