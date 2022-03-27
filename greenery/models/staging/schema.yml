@@ -116,6 +116,10 @@ models:
   
   - name: stg_users
     description: Demographics about each user.
+    tests:
+      - unique:
+      #ensure unique address ids for each user
+          column_name: "user_id || '-' || address_id"
     columns:
       - name: user_id
         tests:
@@ -134,4 +138,3 @@ models:
       - name: address_id 
         tests:
           - not_null 
-          - unique

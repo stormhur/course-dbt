@@ -1,0 +1,40 @@
+version: 2
+
+macros:
+  - name: emails
+    description: tests for whether email address contains "@" symbol to ensure valid email address. 
+    docs:
+      show: true
+    arguments:
+      - name: model
+        description: pass the name of the model you want to reference
+      - name: column_name 
+        description: pass the name of the column that should hold email strings
+
+  - name: phone_number
+    description: tests for whether phone number string is larger than 12 digits
+    docs:
+      show: true
+    arguments:
+      - name: model
+        description: pass the name of the model you want to reference
+      - name: column_name 
+        description: pass the name of the column that should hold phone number string
+  
+  - name: round_avg
+    description: takes the average of a field and rounds it to the nearest 2 decimal places
+    docs:
+      show: true
+    arguments:
+      - name: column_name 
+        description: pass the name of the column that you want to take the average of, should be able to be converted to numeric.
+
+  - name: positive_values
+    description: checks whether the value is less than 0
+    docs:
+      show: true
+    arguments:
+      - name: model
+        description: pass the name of the model you want to reference
+      - name: column_name 
+        description: pass the name of the column that should be >= 0

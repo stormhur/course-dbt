@@ -41,8 +41,8 @@ SELECT DISTINCT
   fact_user_orders.estimated_delivery_performance,
   fact_user_orders.is_delivered
 FROM {{ ref('stg_events') }} AS stg_events
-LEFT JOIN {{ ref('fact_user_orders') }} AS fact_user_orders
+LEFT JOIN {{ ref('int_user_orders') }} AS fact_user_orders
   ON stg_events.order_id = fact_user_orders.order_id
-WHERE stg_events.event_type IN ('checkout','package_shipped')
+WHERE stg_events.event_type = 'package_shipped'
 
 

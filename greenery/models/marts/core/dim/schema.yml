@@ -2,31 +2,6 @@ version: 2
 
 models:
   
-  - name: dim_active_promos
-    description: A view that stores only active promotions. This ensures we do not mistakenly apply inactive promos.
-    columns:
-      - name: active_promo_id
-        tests: 
-          - not_null
-          - unique
-      - name: active_price_discount_in_usd
-        tests: 
-          - not_null
-          - positive_values 
-
-  - name: dim_order_products
-    description: A view that stores each unique order_id with associated product information. All product names and costs are stored as comma separated strings. Index of value in comma separated list matches (meaning product name index 1 == product price index 1).
-    columns:
-      - name: order_id
-        tests: 
-          - not_null
-          - unique
-      - name: product_names_in_order_commasep
-      - name: total_product_in_order_commasep
-      - name: total_order_products
-        tests: 
-          - positive_values
-  
   - name: dim_users
     description: A view that stores each user with associated address and user metadata. Each user could potentially have many addresses, so all address data is stored as an aggregated comma-separated list string. Please note that indices match (i.e., associated address id index 1 == associated country index 1)
     columns:

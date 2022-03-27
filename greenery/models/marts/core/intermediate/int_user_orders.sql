@@ -43,9 +43,9 @@ SELECT
     END AS estimated_delivery_performance,
   CASE WHEN stg_orders.delivered_at_utc IS NOT NULL THEN 1 ELSE 0 END AS is_delivered
 FROM {{ ref('stg_orders') }} AS stg_orders
-  LEFT JOIN {{ ref('dim_active_promos') }} AS dim_active_promos
+  LEFT JOIN {{ ref('int_active_promos') }} AS dim_active_promos
     ON stg_orders.promo_id = dim_active_promos.active_promo_id
-  LEFT JOIN {{ ref('dim_order_products') }}  AS int_product
+  LEFT JOIN {{ ref('int_order_products') }}  AS int_product
     ON stg_orders.order_id = int_product.order_id
   LEFT JOIN {{ ref('stg_addresses') }} AS stg_addresses
     ON stg_orders.address_id = stg_addresses.address_id
